@@ -7,6 +7,7 @@ require gorm.io/gorm v1.25.2
 require (
 	github.com/andybalholm/brotli v1.0.5 // indirect
 	github.com/go-redis/redis v6.15.9+incompatible // indirect
+	github.com/go-sql-driver/mysql v1.7.0 // indirect
 	github.com/gofiber/fiber/v2 v2.48.0 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
@@ -20,4 +21,6 @@ require (
 	github.com/valyala/fasthttp v1.48.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect
 	golang.org/x/sys v0.10.0 // indirect
+	gorm.io/driver/mysql v1.5.1 // indirect
+	gorm.io/plugin/dbresolver v1.4.1 // indirect
 )

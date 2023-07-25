@@ -21,9 +21,9 @@ type MysqlConfig struct {
 	Slave []MysqlSingleConfig
 	// 慢查询阈值, 单位秒, 默认5
 	SlowThreshold int
-	// 4=>info(非master,production默认) 3=>Warn(master,production默认) 2=>Error 1=>Silent. 详情看gorm.io/gorm/logger/logger.go
+	// 4=>info(非master,production默认) 3=>Warn(master,production默认) 2=>Error 1=>Silent. 详情看gorm.io/gorm/logger/log.go
 	LogLevel int
-	// 结构体转表名是否为复数，填 true 会在结构体后+s作为表名，中台标准是 false
+	// 结构体转表名是否为复数，填 true 会在结构体后+s作为表名
 	PluralTable bool
 	// gorm logger 调用栈跳过层数，不填则默认3
 	CallDepth int

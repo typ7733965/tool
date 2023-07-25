@@ -14,14 +14,14 @@ func ConfigOptionWithApp(app *config.App) ConfigOption {
 func ConfigOptionWithMysql(mysql *config.MysqlConfig) ConfigOption {
 	return func(f *Facade) {
 		if mysql != nil {
-			f.configs.Mysql = mysql
+			f.configs.mysql = mysql
 		}
 	}
 }
 func ConfigOptionWithRedis(redis *config.RedisConfig) ConfigOption {
 	return func(f *Facade) {
 		if redis != nil {
-			f.configs.Redis = redis
+			f.configs.redis = redis
 		}
 	}
 }

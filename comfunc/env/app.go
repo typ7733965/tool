@@ -4,6 +4,12 @@ import (
 	"github.com/typ7733965/tool/comfunc/tool"
 	"github.com/typ7733965/tool/config"
 	"os"
+	"sync"
+)
+
+var (
+	appInfo *AppInfo
+	apLock  = sync.RWMutex{}
 )
 
 type AppInfo struct {
@@ -15,13 +21,20 @@ type AppInfo struct {
 }
 
 func InitEnv(app *config.App) *AppInfo {
+	apLock.Lock()
+	defer apLock.Unlock()
 	hostName, _ := os.Hostname()
-	appInfo := &AppInfo{
+	appInfo = &AppInfo{
 		Name:     app.Name,
 		Stage:    app.Stage,
 		Dev:      app.Dev,
 		Ip:       tool.GetIp(),
 		HostName: hostName,
 	}
+	return appInfo
+}
+func GetAppInfo() *AppInfo {
+	apLock.RLock()
+	defer apLock.RUnlock()
 	return appInfo
 }
