@@ -84,6 +84,6 @@ func parseDsn(conf *config.MysqlSingleConfig) string {
 		conf.Password,
 		conf.Addr,
 		conf.Db,
-		url.QueryEscape("UTC+8"))
+		url.QueryEscape("UTC"))
 	return dsn
 }

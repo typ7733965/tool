@@ -1,6 +1,8 @@
 package facaed
 
 import (
+	"context"
+	"fmt"
 	"github.com/go-redis/redis"
 	"github.com/typ7733965/tool/comfunc/env"
 	"github.com/typ7733965/tool/comfunc/tool/cache"
@@ -9,6 +11,8 @@ import (
 	"github.com/typ7733965/tool/config"
 	"gorm.io/gorm"
 )
+
+type ShutdownFunc func(context.Context)
 
 type Config struct {
 	App   *config.App         `yaml:"app" json:"app"`
@@ -23,6 +27,7 @@ type Facade struct {
 	redisClient redis.UniversalClient
 	fiber       *fiber.App
 	mysqlClient *gorm.DB
+	shutdown    []ShutdownFunc
 }
 
 func InitApp(opts ...ConfigOption) (f *Facade, err error) {
@@ -67,4 +72,21 @@ func (a *Facade) GetFiber() *fiber.App {
 }
 func (a *Facade) GetMysqlClient() *gorm.DB {
 	return a.mysqlClient
+}
+
+func (a *Facade) StartFiber() error {
+	if a.fiber != nil {
+		a.shutdown = append(a.shutdown, func(ctx context.Context) {
+			a.fiber.Fiber().Shutdown()
+		})
+		return a.fiber.Run()
+	}
+	return fmt.Errorf("fiber is nil, please init fiber first")
+}
+
+// 关闭所有启动的服务
+func (a *Facade) Shutdown(ctx context.Context) {
+	for _, shutdown := range a.shutdown {
+		shutdown(ctx)
+	}
 }

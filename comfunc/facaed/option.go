@@ -25,3 +25,10 @@ func ConfigOptionWithRedis(redis *config.RedisConfig) ConfigOption {
 		}
 	}
 }
+func ConfigOptionWithFiber(fiber *config.FiberConfig) ConfigOption {
+	return func(f *Facade) {
+		if fiber != nil {
+			f.configs.fiber = fiber
+		}
+	}
+}
